@@ -15,7 +15,7 @@ export default function Answers(props: Props) {
     } else if (props.isChosen && props.isRight === -1 && props.revealAns) {
       return { backgroundColor: "red" };
     } else if (props.isChosen && !props.revealAns) {
-      return { backgroundColor: "cyan" };
+      return { backgroundColor: "#ccccb1" };
     } else return { backgroundColor: "white" };
   }
 
@@ -26,9 +26,12 @@ export default function Answers(props: Props) {
   const styles = determineColor();
   return (
     <div>
-      <button onClick={canAnswer} className="answer-btn" style={styles}>
-        {props.answer}
-      </button>
+      <button
+        onClick={canAnswer}
+        className="answer-btn"
+        style={styles}
+        dangerouslySetInnerHTML={{ __html: props.answer }}
+      ></button>
     </div>
   );
 }

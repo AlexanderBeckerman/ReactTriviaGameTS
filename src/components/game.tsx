@@ -77,9 +77,10 @@ export default function Game(props: Props) {
 
   return (
     <div className="question-container">
-      <div className="question">
-        <>{props.question}</>
-      </div>
+      <div
+        className="question"
+        dangerouslySetInnerHTML={{ __html: props.question }}
+      ></div>
       <div className="answers">{answersElement}</div>
     </div>
   );
