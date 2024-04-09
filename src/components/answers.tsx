@@ -8,6 +8,7 @@ type Props = {
   answer: string;
   chooseAnswer: () => void;
 };
+
 export default function Answers(props: Props) {
   function determineColor() {
     if (props.isCorrect && props.revealAns) {
@@ -15,7 +16,11 @@ export default function Answers(props: Props) {
     } else if (props.isChosen && props.isRight === -1 && props.revealAns) {
       return { backgroundColor: "red" };
     } else if (props.isChosen && !props.revealAns) {
-      return { backgroundColor: "#ccccb1" };
+      return {
+        backgroundColor: "#ccccb1",
+        transform: "scale(1.1)",
+        boxShadow: "0 0 10px rgba(0, 0, 0, 0.3)",
+      };
     } else return { backgroundColor: "white" };
   }
 

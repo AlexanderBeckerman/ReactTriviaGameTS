@@ -23,6 +23,7 @@ function App() {
   const [showAnswers, setShowAnswers] = useState(false);
   const [correctAnswers, setCorrectAnswers] = useState(0);
   const [numQuestions, setNumQuestions] = useState(6);
+  const [busyFetching, setBusyFetching] = useState(false);
 
   function fetchData(tries = 0) {
     fetch(`${API_URL}?amount=${numQuestions}&type=multiple`).then(
@@ -31,6 +32,7 @@ function App() {
           const data = await res.json();
           if (data.results) {
             setQuizData(data.results);
+            setBusyFetching(false);
           }
         } else if (res.status === 429 && tries < MAX_RETRIES) {
           const sleep = (ms: number) =>
@@ -56,6 +58,7 @@ function App() {
 
   async function playGame() {
     try {
+      setBusyFetching(true);
       await fetchData();
     } catch (err) {
       setInGame(false);
@@ -106,7 +109,9 @@ function App() {
     );
   }
 
-  return (
+  return busyFetching ? (
+    <h1 id="loading_data">Loading questions...</h1>
+  ) : (
     <main>
       <div className="start-div">
         {!inGame && <StartScreen play={playGame} />}
@@ -128,9 +133,9 @@ function App() {
             HOME
           </button>
           {showAnswers && (
-            <p>
+            <h3>
               YOU GOT {correctAnswers}/{numQuestions} RIGHT!
-            </p>
+            </h3>
           )}
         </div>
       )}

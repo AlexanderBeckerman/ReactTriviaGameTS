@@ -79,7 +79,7 @@ export default function Game(props: Props) {
     <div className="question-container">
       <div
         className="question"
-        dangerouslySetInnerHTML={{ __html: props.question }}
+        dangerouslySetInnerHTML={{ __html: props.question }} // this is bad practice but needed to render entity codes
       ></div>
       <div className="answers">{answersElement}</div>
     </div>
